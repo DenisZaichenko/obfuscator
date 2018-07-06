@@ -20,16 +20,13 @@ public class SimpleObfuscationStrategy implements ObfuscationStrategy {
     }
 
     @Override
-    public String process(String str, List<String> regexs) {
-        for (String regex :
-                regexs) {
+    public String process(String str, String regex) {
             Matcher m = Pattern.compile(regex).matcher(str);
             List<String> matches = new ArrayList<>();
             while (m.find()) {
                 String subStr = m.group();
                 str = str.replace(subStr, marker);
             }
-        }
         return str;
     }
 }
