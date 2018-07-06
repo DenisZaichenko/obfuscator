@@ -18,8 +18,8 @@ public class SimpleObfuscationStrategy implements ObfuscationStrategy {
     }
 
     @Override
-    public String process(String str, String regex) {
-            Matcher m = Pattern.compile(regex).matcher(str);
+    public String process(String str, Pattern pattern) {
+        Matcher m = pattern.matcher(str);
             while (m.find()) {
                 String subStr = m.group();
                 str = str.replace(subStr, marker);

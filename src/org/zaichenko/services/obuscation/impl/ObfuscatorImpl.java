@@ -3,17 +3,19 @@ package org.zaichenko.services.obuscation.impl;
 import org.zaichenko.services.obuscation.ObfuscationStrategy;
 import org.zaichenko.services.obuscation.Obfuscator;
 
+import java.util.regex.Pattern;
+
 public class ObfuscatorImpl implements Obfuscator {
     private ObfuscationStrategy obfuscationStrategy;
-    private String regex;
+    private Pattern pattern;
 
-    public ObfuscatorImpl(ObfuscationStrategy obfuscationStrategy, String regex) {
+    public ObfuscatorImpl(ObfuscationStrategy obfuscationStrategy, Pattern pattern) {
         this.obfuscationStrategy = obfuscationStrategy;
-        this.regex = regex;
+        this.pattern = pattern;
     }
 
     @Override
     public String obfuscate(String content) {
-        return obfuscationStrategy.process(content, regex);
+        return obfuscationStrategy.process(content, pattern);
     }
 }
