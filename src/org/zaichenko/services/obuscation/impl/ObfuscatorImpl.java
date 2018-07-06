@@ -4,7 +4,6 @@ import org.zaichenko.services.obuscation.ObfuscationStrategy;
 import org.zaichenko.services.obuscation.Obfuscator;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ObfuscatorImpl implements Obfuscator {
     private ObfuscationStrategy obfuscationStrategy;
@@ -16,7 +15,7 @@ public class ObfuscatorImpl implements Obfuscator {
     }
 
     @Override
-    public List<String> obfuscate(List<String> strings) {
-        return strings.stream().map(s->obfuscationStrategy.process(s,regexs)).collect(Collectors.toList());
+    public String obfuscate(String content) {
+        return obfuscationStrategy.process(content, regexs);
     }
 }
