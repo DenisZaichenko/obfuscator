@@ -9,13 +9,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FileServiceImpl implements FileService {
 
     @Override
     public List<String> read(Path path) {
-        try {
-            return Files.lines(path).map(String::toString).collect(Collectors.toList());
+        try(Stream<String> lineStream = Files.newBufferedReader(path).lines()) {
+            return lineStream.collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -24,8 +25,11 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public void write(Path path, List<String> fileContent)  {
-        try {
-            Files.write(path, fileContent);
+        try (BufferedWriter writer=Files.newBufferedWriter(path)){
+            for (String str :
+                    fileContent) {
+                writer.write(str);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
